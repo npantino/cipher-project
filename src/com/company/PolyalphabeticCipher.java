@@ -25,13 +25,14 @@ public class PolyalphabeticCipher implements Cipher {
         }
     }
 
-    // multiplies each integer in shiftList by -1
+    // multiplies each integer in shiftList by -1 by looping through ArrayList
     public static void reverseShift(String str) {
         for(int i = 0; i < str.length(); i++) {
             shiftList.set(i, shiftList.get(i) * -1);
         }
     }
 
+    // Encrypted/Decrypts original message by using shifts depending on the cipher, and adds them to another ArrayList.
     public static void shift(String str1, String str2) {
         // increment keeps track of number of spaces
         int increment = 0;
@@ -54,6 +55,7 @@ public class PolyalphabeticCipher implements Cipher {
         }
     }
 
+    // Converts encrypted/decrypted ArrayList from integers to characters, and adds them to encrypted/decrypted message
     public static void convertList(String str) {
         for(int i = 0; i < str.length(); i++) {
             int l = encryptedList.get(i);

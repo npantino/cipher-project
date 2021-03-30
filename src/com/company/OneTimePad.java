@@ -58,13 +58,14 @@ public class OneTimePad {
         }
     }
 
-    // multiplies each integer in pad by -1
+    // multiplies each integer in pad by -1 by looping through the ArrayList for pad
     public static void reversePad(String str) {
         for(int i = 0; i < str.length(); i++) {
             pad.set(i, pad.get(i) * -1);
         }
     }
 
+    // Encrypted/Decrypts original message by using shifts depending on the cipher, and adds them to another ArrayList.
     public static void shift(String str) {
         int increment = 0;
         for(int i = 0; i < str.length(); i++) {
@@ -86,6 +87,7 @@ public class OneTimePad {
         }
     }
 
+    // Converts encrypted/decrypted ArrayList from integers to characters, and adds them to encrypted/decrypted message
     public static void convertList(String str) {
         for(int i = 0; i < str.length(); i++) {
             int l = encryptedList.get(i);

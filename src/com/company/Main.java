@@ -56,6 +56,7 @@ public class Main {
 
         // Some user input, and control flow with an error message
 
+        // Asks for encryption method (caesar, polyalphabetic, one-time pad)
         while (encryptionMethod) {
             System.out.println("Caesar Cipher, Polyalphabetic Cipher, or One-time Pad? ");
             method = scanner.nextLine().toLowerCase();
@@ -65,6 +66,7 @@ public class Main {
             }
         }
 
+        // Asks if user wants to encrypt or decrypt their message
         while (correctChoice) {
             System.out.println("Encrypt or Decrypt? ");
             choice = scanner.nextLine().toLowerCase();
@@ -84,24 +86,33 @@ public class Main {
         }
 
         while (correctShift) {
-            // Shift number refers to amount of times a letter will be shifted relative to the alphabet.
+            // Asks for different shifts based on the encryption method
             switch (method) {
                 case "caesar" -> {
+                    // Shift key refers to amount of times a letter will be shifted relative to the alphabet.
                     System.out.println("Enter shift number (0 - 25): ");
                     shiftKey = scanner.nextInt();
                     correctShift = false;
                 }
                 case "polyalphabetic" -> {
+                    // Characters in the keyword will be converted into integers, to be used as shifts.
                     System.out.println("Enter shift keyword: ");
                     shiftWord = scanner.nextLine();
                     PolyalphabeticCipher.convertShift(shiftWord);
                     correctShift = false;
                 }
                 case "one-time pad" -> {
+                    // If encrypting with one-time pad,
+                    // program will generated a pad with the same amount of characters as the original message.
+                    // Also converts the pad from integer format to string,
+                    // so the user can use that string to decrypt the message in the future.
                     if (choice.equals("encrypt")) {
                         OneTimePad.generatePad(originalMsg);
+                        // Prints out pad (string) after converting the format
                         OneTimePad.convertPadInt(originalMsg);
-                    } else {
+                    }
+                    // If decrypting, user enters in pad (string), program converts it from string to integers.
+                    else {
                         System.out.println("Enter pad (string): ");
                         padString = scanner.nextLine();
                         OneTimePad.convertPadString(padString);
@@ -112,7 +123,7 @@ public class Main {
             }
         }
 
-        // Decrypt means shifting letters in reverse (I => H)
+        // Decrypt means shifting letters in reverse (I => H), so each shift is multiplied by -1.
         if (choice.equals("decrypt")) {
             if (method.equals("caesar")) {
                 shiftKey *= -1;

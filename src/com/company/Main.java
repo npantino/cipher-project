@@ -43,6 +43,10 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        CaesarCipher caesarCipher = new CaesarCipher();
+        PolyalphabeticCipher polyalphabeticCipher = new PolyalphabeticCipher();
+        OneTimePad oneTimePad = new OneTimePad();
+
         String originalMsg = "";
         int shiftKey = 0;
         String shiftWord = "";
@@ -61,7 +65,8 @@ public class Main {
             System.out.println("Caesar Cipher, Polyalphabetic Cipher, or One-time Pad? ");
             method = scanner.nextLine().toLowerCase();
             switch (method) {
-                case "caesar", "polyalphabetic", "one-time pad" -> encryptionMethod = false;
+                case "caesar", "polyalphabetic", "one-time pad",
+                        "caesar cipher", "polyalphabetic cipher" -> encryptionMethod = false;
                 default -> System.out.println(errMsg);
             }
         }
@@ -90,7 +95,7 @@ public class Main {
             switch (method) {
                 case "caesar" -> {
                     // Shift key refers to amount of times a letter will be shifted relative to the alphabet.
-                    System.out.println("Enter shift number (0 - 25): ");
+                    System.out.println("Enter shift key (0 - 25): ");
                     shiftKey = scanner.nextInt();
                     correctShift = false;
                 }
@@ -98,7 +103,7 @@ public class Main {
                     // Characters in the keyword will be converted into integers, to be used as shifts.
                     System.out.println("Enter shift keyword: ");
                     shiftWord = scanner.nextLine();
-                    PolyalphabeticCipher.convertShift(shiftWord);
+                    polyalphabeticCipher.convertShift(shiftWord);
                     correctShift = false;
                 }
                 case "one-time pad" -> {
@@ -107,15 +112,15 @@ public class Main {
                     // Also converts the pad from integer format to string,
                     // so the user can use that string to decrypt the message in the future.
                     if (choice.equals("encrypt")) {
-                        OneTimePad.generatePad(originalMsg);
+                        oneTimePad.generatePad(originalMsg);
                         // Prints out pad (string) after converting the format
-                        OneTimePad.convertPadInt(originalMsg);
+                        oneTimePad.convertPadInt(originalMsg);
                     }
                     // If decrypting, user enters in pad (string), program converts it from string to integers.
                     else {
                         System.out.println("Enter pad (string): ");
                         padString = scanner.nextLine();
-                        OneTimePad.convertPadString(padString);
+                        oneTimePad.convertPadString(padString);
                     }
                     correctShift = false;
                 }
@@ -129,28 +134,28 @@ public class Main {
                 shiftKey *= -1;
             }
             else if (method.equals("polyalphabetic")) {
-                PolyalphabeticCipher.reverseShift(shiftWord);
+                polyalphabeticCipher.reverseShift(shiftWord);
             }
             else {
-                OneTimePad.reversePad(padString);
+                oneTimePad.reversePad(padString);
             }
         }
 
         // Encrypts/Decrypts message, converts it back to a string, and prints the result
         if (method.equals("caesar")) {
-            CaesarCipher.convertMsg(originalMsg);
-            CaesarCipher.shift(shiftKey, originalMsg);
-            CaesarCipher.convertList(originalMsg);
+            caesarCipher.convertMsg(originalMsg);
+            caesarCipher.shift(shiftKey, originalMsg);
+            caesarCipher.convertList(originalMsg);
         }
         else if (method.equals("polyalphabetic")) {
-            PolyalphabeticCipher.convertMsg(originalMsg);
-            PolyalphabeticCipher.shift(shiftWord, originalMsg);
-            PolyalphabeticCipher.convertList(originalMsg);
+            polyalphabeticCipher.convertMsg(originalMsg);
+            polyalphabeticCipher.shift(shiftWord, originalMsg);
+            polyalphabeticCipher.convertList(originalMsg);
         }
         else {
-            OneTimePad.convertMsg(originalMsg);
-            OneTimePad.shift(originalMsg);
-            OneTimePad.convertList(originalMsg);
+            oneTimePad.convertMsg(originalMsg);
+            oneTimePad.shift(originalMsg);
+            oneTimePad.convertList(originalMsg);
         }
     }
 }

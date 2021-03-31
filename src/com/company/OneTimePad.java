@@ -3,15 +3,15 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class OneTimePad {
-    public static ArrayList<Integer> encryptedList = new ArrayList<>();
-    public static ArrayList<Integer> pad = new ArrayList<>();
-    public static StringBuilder encryptedMsg = new StringBuilder();
-    public static StringBuilder padString = new StringBuilder();
-    public static Random random = new Random();
+public class OneTimePad implements Cipher {
+    ArrayList<Integer> encryptedList = new ArrayList<>();
+    ArrayList<Integer> pad = new ArrayList<>();
+    StringBuilder encryptedMsg = new StringBuilder();
+    StringBuilder padString = new StringBuilder();
+    Random random = new Random();
 
     // converts original message from characters to integers
-    public static void convertMsg(String str) {
+    public void convertMsg(String str) {
 
         for(int i = 0; i < str.length(); i++) {
             // Converting letters to numbers (A = 0, B = 1 ... Z = 25 ... space = -11)
@@ -20,7 +20,7 @@ public class OneTimePad {
     }
 
     // Generates pad with random integers between 0 and 25, length is equal to original message
-    public static void generatePad(String str) {
+    public void generatePad(String str) {
         // max is exclusive when generating random integer
         int max = 26;
         for (int i = 0; i < str.length(); i++) {
@@ -33,7 +33,7 @@ public class OneTimePad {
     }
 
     // converts pad from integers to string, and prints it
-    public static void convertPadInt(String str) {
+    public void convertPadInt(String str) {
         // increment keeps track of number of spaces
         int increment = 0;
         for (int i = 0; i < str.length(); i++) {
@@ -52,21 +52,21 @@ public class OneTimePad {
         System.out.println("Pad: " + padString);
     }
 
-    public static void convertPadString(String str) {
+    public void convertPadString(String str) {
         for(int i = 0; i < str.length(); i++) {
             pad.add(Character.getNumericValue(str.charAt(i)) - 10);
         }
     }
 
     // multiplies each integer in pad by -1 by looping through the ArrayList for pad
-    public static void reversePad(String str) {
+    public void reversePad(String str) {
         for(int i = 0; i < str.length(); i++) {
             pad.set(i, pad.get(i) * -1);
         }
     }
 
     // Encrypted/Decrypts original message by using shifts depending on the cipher, and adds them to another ArrayList.
-    public static void shift(String str) {
+    public void shift(String str) {
         int increment = 0;
         for(int i = 0; i < str.length(); i++) {
             // Skips shifting spaces
@@ -88,7 +88,7 @@ public class OneTimePad {
     }
 
     // Converts encrypted/decrypted ArrayList from integers to characters, and adds them to encrypted/decrypted message
-    public static void convertList(String str) {
+    public void convertList(String str) {
         for(int i = 0; i < str.length(); i++) {
             int l = encryptedList.get(i);
             // Base 10 => ASCII characters (a, b, c...)
@@ -97,5 +97,20 @@ public class OneTimePad {
             encryptedMsg.append(s);
         }
         System.out.println(encryptedMsg);
+    }
+
+    @Override
+    public void convertMsg() {
+
+    }
+
+    @Override
+    public void shift() {
+
+    }
+
+    @Override
+    public void convertList() {
+
     }
 }

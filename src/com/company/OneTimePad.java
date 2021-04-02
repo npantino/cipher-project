@@ -100,17 +100,7 @@ public class OneTimePad implements Cipher {
     }
 
     @Override
-    public void convertMsg() {
-
-    }
-
-    @Override
     public void shift() {
-
-    }
-
-    @Override
-    public void convertList() {
 
     }
 }

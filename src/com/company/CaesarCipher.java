@@ -32,7 +32,6 @@ public class CaesarCipher implements Cipher {
         }
     }
 
-
     public void convertList(String str) {
         for (int i = 0; i < str.length(); i++) {
             int l = encryptedList.get(i);
@@ -45,17 +44,8 @@ public class CaesarCipher implements Cipher {
     }
 
     @Override
-    public void convertMsg() {
-
-    }
-
-    @Override
     public void shift() {
 
     }
 
-    @Override
-    public void convertList() {
-
-    }
 }
